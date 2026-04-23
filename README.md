@@ -1,40 +1,40 @@
-# Generatore 3D del Modello di Abell
+# Abell Model 3D Generator
 
-Applicazione web per creare, modificare e visualizzare box 3D sul modello di Abell in modo rapido e interattivo.
+A web app to create, edit, and visualize 3D boxes on the Abell model quickly and interactively.
 
-## Panoramica
+## Overview
 
-Questo progetto permette di:
+This project lets you:
 
-- definire assi del modello (x clienti, y bisogni, z modalita/tecnologie),
-- aggiungere più box con origine e dimensioni personalizzate,
-- assegnare un colore per ogni box,
-- usare zoom e pan sul canvas,
-- salvare e caricare configurazioni in formato JSON.
+- define model axes (x customers, y needs, z modalities/technologies),
+- add multiple boxes with custom origin and size,
+- assign a color to each box,
+- use zoom and pan on the canvas,
+- save and load configurations in JSON format.
 
-## Demo locale
+## Local Demo
 
-Progetto statico: non richiede build.
+This is a static project and does not require a build step.
 
-1. Clona o scarica la repository.
-2. Apri [index.html](index.html) nel browser.
+1. Clone or download the repository.
+2. Open [index.html](index.html) in your browser.
 
-In alternativa puoi usare un piccolo server locale (consigliato in sviluppo):
+Alternatively, you can run a small local server (recommended for development):
 
 1. `python3 -m http.server 8000`
-2. Apri `http://localhost:8000`
+2. Open `http://localhost:8000`
 
-## Struttura del progetto
+## Project Structure
 
-- [index.html](index.html): interfaccia utente.
-- [css/styles.css](css/styles.css): stile principale.
-- [js/app.js](js/app.js): logica applicativa e rendering canvas.
+- [index.html](index.html): user interface.
+- [css/styles.css](css/styles.css): main styling.
+- [js/app.js](js/app.js): application logic and canvas rendering.
 
-## Crediti
+## Credits
 
-Creato da EhiPi con l'aiuto del suo amico Claude Code.
+Created by EhiPi with the help of his friend Claude Code.
 
-## Licenza d'uso
+## License
 
-Uso gratuito consentito solo per scopi personali e didattici.
-Non è consentito l'uso commerciale senza autorizzazione esplicita dell'autore.
+Free use is allowed for personal and educational purposes only.
+Commercial use is not allowed without explicit authorization from the author.

@@ -5,6 +5,89 @@
 	var BOX_ID_SEQ = 2;
 	var DEFAULT_LABEL_COLOR = "#1e293b";
 	var BOX_PALETTE = ["#3d9ee8", "#57cc99", "#f95738", "#f4b400", "#8b5cf6", "#ef6f9f"];
+	var currentLanguage = "it";
+	var I18N = {
+		it: {
+			pageTitle: "Generatore del modello di Abell",
+			heroTitle: "Genera il modello di Abell",
+			heroSubtitle: "Assi: x clienti, y bisogni, z modalita/tecnologie",
+			canvasHelp: "Mouse: rotella per zoom, trascina per pan.",
+			languageLegend: "Lingua",
+			languageLabel: "Interfaccia",
+			boxLegend: "Box (origine + dimensioni)",
+			showGrid: "Mostra griglia",
+			remove: "Rimuovi",
+			originX: "Origine x",
+			originY: "Origine y",
+			originZ: "Origine z",
+			sizeX: "Dim x",
+			sizeY: "Dim y",
+			sizeZ: "Dim z",
+			boxColor: "Colore box",
+			addBox: "+ AGGIUNGI BOX",
+			axisLabelCountLegend: "Numero etichette asse",
+			axisCountX: "x (clienti)",
+			axisCountY: "y (bisogni)",
+			axisCountZ: "z (modalita)",
+			updateLabels: "AGGIORNA ETICHETTE",
+			axisLabelsLegend: "Etichette assi",
+			draw: "DISEGNA",
+			resetView: "RESET VISTA",
+			exportImage: "ESPORTA IMMAGINE",
+			saveJson: "SALVA JSON",
+			loadJson: "CARICA JSON",
+			axisTitleX: "Clienti (x)",
+			axisTitleY: "Bisogni (y)",
+			axisTitleZ: "Modalita/Tecnologie (z)",
+			statusImageOpen: "Nella nuova finestra puoi salvare l'immagine.",
+			statusMinOneBox: "Deve rimanere almeno un box.",
+			statusJsonSaved: "JSON salvato correttamente.",
+			statusJsonSaveError: "Errore durante il salvataggio JSON.",
+			statusJsonLoaded: "JSON caricato correttamente.",
+			statusJsonLoadError: "Impossibile caricare il file JSON.",
+			errorInvalidJson: "JSON non valido."
+		},
+		en: {
+			pageTitle: "Abell model generator",
+			heroTitle: "Generate the Abell model",
+			heroSubtitle: "Axes: x customers, y needs, z modalities/technologies",
+			canvasHelp: "Mouse: wheel to zoom, drag to pan.",
+			languageLegend: "Language",
+			languageLabel: "Interface",
+			boxLegend: "Boxes (origin + size)",
+			showGrid: "Show grid",
+			remove: "Remove",
+			originX: "Origin x",
+			originY: "Origin y",
+			originZ: "Origin z",
+			sizeX: "Size x",
+			sizeY: "Size y",
+			sizeZ: "Size z",
+			boxColor: "Box color",
+			addBox: "+ ADD BOX",
+			axisLabelCountLegend: "Axis label count",
+			axisCountX: "x (customers)",
+			axisCountY: "y (needs)",
+			axisCountZ: "z (modalities)",
+			updateLabels: "UPDATE LABELS",
+			axisLabelsLegend: "Axis labels",
+			draw: "DRAW",
+			resetView: "RESET VIEW",
+			exportImage: "EXPORT IMAGE",
+			saveJson: "SAVE JSON",
+			loadJson: "LOAD JSON",
+			axisTitleX: "Customers (x)",
+			axisTitleY: "Needs (y)",
+			axisTitleZ: "Modalities/Technologies (z)",
+			statusImageOpen: "In the new tab you can save the image.",
+			statusMinOneBox: "At least one box must remain.",
+			statusJsonSaved: "JSON saved successfully.",
+			statusJsonSaveError: "Error while saving JSON.",
+			statusJsonLoaded: "JSON loaded successfully.",
+			statusJsonLoadError: "Unable to load the JSON file.",
+			errorInvalidJson: "Invalid JSON."
+		}
+	};
 
 	var CANVAS = {
 		width: 1050,
@@ -36,6 +119,50 @@
 		y: [],
 		z: []
 	};
+
+	function t(key) {
+		var dictionary = I18N[currentLanguage] || I18N.it;
+		return dictionary[key] || key;
+	}
+
+	function setStatus(messageKey) {
+		$("p.status").text(t(messageKey));
+	}
+
+	function localizeBoxRow(row) {
+		row.find(".remove-box").text(t("remove"));
+		row.find("label[for$='-ox']").text(t("originX"));
+		row.find("label[for$='-oy']").text(t("originY"));
+		row.find("label[for$='-oz']").text(t("originZ"));
+		row.find("label[for$='-sx']").text(t("sizeX"));
+		row.find("label[for$='-sy']").text(t("sizeY"));
+		row.find("label[for$='-sz']").text(t("sizeZ"));
+		row.find("label[for$='-color']").text(t("boxColor"));
+	}
+
+	function applyTranslations() {
+		document.documentElement.lang = currentLanguage;
+		document.title = t("pageTitle");
+
+		$('[data-i18n]').each(function() {
+			var key = $(this).attr('data-i18n');
+			$(this).text(t(key));
+		});
+
+		$("#boxes-container .box-row").each(function() {
+			localizeBoxRow($(this));
+		});
+	}
+
+	function setLanguage(lang) {
+		if (!I18N[lang]) {
+			return;
+		}
+		currentLanguage = lang;
+		$("#language-select").val(lang);
+		applyTranslations();
+		drawGraph();
+	}
 
 	function isNumber(n) {
 		return !isNaN(parseFloat(n)) && isFinite(n);
@@ -300,9 +427,9 @@
 		context.font = "bold 13px 'IBM Plex Sans'";
 		context.fillStyle = "#0f172a";
 		context.textAlign = "left";
-		context.fillText("Clienti (x)", xEnd.x + 14, xEnd.y + 5);
-		context.fillText("Bisogni (y)", yEnd.x - 10, yEnd.y - 16);
-		context.fillText("Modalità/Tecnologie (z)", zEnd.x - 160, zEnd.y + 16);
+		context.fillText(t("axisTitleX"), xEnd.x + 14, xEnd.y + 5);
+		context.fillText(t("axisTitleY"), yEnd.x - 10, yEnd.y - 16);
+		context.fillText(t("axisTitleZ"), zEnd.x - 160, zEnd.y + 16);
 	}
 
 	function drawAxisLabels(context, counts) {
@@ -473,20 +600,21 @@
 			'<div class="box-row">' +
 				'<div class="box-head">' +
 					'<strong class="box-title">Box</strong>' +
-					'<button type="button" class="remove-box">Rimuovi</button>' +
+					'<button type="button" class="remove-box">' + t("remove") + '</button>' +
 				'</div>' +
 				'<div class="box-grid">' +
-					'<label for="box-' + boxId + '-ox">Origine x</label><input type="number" id="box-' + boxId + '-ox" class="box-ox" min="0" max="9" value="' + box.ox + '" />' +
-					'<label for="box-' + boxId + '-oy">Origine y</label><input type="number" id="box-' + boxId + '-oy" class="box-oy" min="0" max="9" value="' + box.oy + '" />' +
-					'<label for="box-' + boxId + '-oz">Origine z</label><input type="number" id="box-' + boxId + '-oz" class="box-oz" min="0" max="9" value="' + box.oz + '" />' +
-					'<label for="box-' + boxId + '-sx">Dim x</label><input type="number" id="box-' + boxId + '-sx" class="box-sx" min="1" max="9" value="' + box.sx + '" />' +
-					'<label for="box-' + boxId + '-sy">Dim y</label><input type="number" id="box-' + boxId + '-sy" class="box-sy" min="1" max="9" value="' + box.sy + '" />' +
-					'<label for="box-' + boxId + '-sz">Dim z</label><input type="number" id="box-' + boxId + '-sz" class="box-sz" min="1" max="9" value="' + box.sz + '" />' +
-					'<label for="box-' + boxId + '-color">Colore box</label><input type="color" id="box-' + boxId + '-color" class="box-color" value="' + normalizeHexColor(box.color, BOX_PALETTE[0]) + '" />' +
+					'<label for="box-' + boxId + '-ox">' + t("originX") + '</label><input type="number" id="box-' + boxId + '-ox" class="box-ox" min="0" max="9" value="' + box.ox + '" />' +
+					'<label for="box-' + boxId + '-oy">' + t("originY") + '</label><input type="number" id="box-' + boxId + '-oy" class="box-oy" min="0" max="9" value="' + box.oy + '" />' +
+					'<label for="box-' + boxId + '-oz">' + t("originZ") + '</label><input type="number" id="box-' + boxId + '-oz" class="box-oz" min="0" max="9" value="' + box.oz + '" />' +
+					'<label for="box-' + boxId + '-sx">' + t("sizeX") + '</label><input type="number" id="box-' + boxId + '-sx" class="box-sx" min="1" max="9" value="' + box.sx + '" />' +
+					'<label for="box-' + boxId + '-sy">' + t("sizeY") + '</label><input type="number" id="box-' + boxId + '-sy" class="box-sy" min="1" max="9" value="' + box.sy + '" />' +
+					'<label for="box-' + boxId + '-sz">' + t("sizeZ") + '</label><input type="number" id="box-' + boxId + '-sz" class="box-sz" min="1" max="9" value="' + box.sz + '" />' +
+					'<label for="box-' + boxId + '-color">' + t("boxColor") + '</label><input type="color" id="box-' + boxId + '-color" class="box-color" value="' + normalizeHexColor(box.color, BOX_PALETTE[0]) + '" />' +
 				'</div>' +
 			'</div>';
 
 		$("#boxes-container").append(html);
+		localizeBoxRow($("#boxes-container .box-row").last());
 		renumberBoxes();
 	}
 
@@ -541,7 +669,7 @@
 
 	function loadState(state) {
 		if (!state || typeof state !== "object") {
-			throw new Error("JSON non valido.");
+			throw new Error(t("errorInvalidJson"));
 		}
 
 		var counts = state.labelCounts || {};
@@ -646,7 +774,7 @@
 	}
 
 	$("button.makeimage").click(function() {
-		$("p.status").text("Nella nuova finestra puoi salvare l'immagine.");
+		setStatus("statusImageOpen");
 		var can = document.getElementById("c");
 		var win = window.open();
 		win.document.write("<img src='" + can.toDataURL() + "'/>");
@@ -672,12 +800,16 @@
 
 	$("#boxes-container").on("click", ".remove-box", function() {
 		if ($("#boxes-container .box-row").length === 1) {
-			$("p.status").text("Deve rimanere almeno un box.");
+			setStatus("statusMinOneBox");
 			return;
 		}
 		$(this).closest(".box-row").remove();
 		renumberBoxes();
 		drawGraph();
+	});
+
+	$("#language-select").on("change", function() {
+		setLanguage($(this).val());
 	});
 
 	$(document).on("change", ".box-grid input, .fields, .grid", function() {
@@ -693,9 +825,9 @@
 		try {
 			var state = serializeState();
 			downloadJson("abell-model.json", JSON.stringify(state, null, 2));
-			$("p.status").text("JSON salvato correttamente.");
+			setStatus("statusJsonSaved");
 		} catch (error) {
-			$("p.status").text("Errore durante il salvataggio JSON.");
+			setStatus("statusJsonSaveError");
 		}
 	});
 
@@ -713,9 +845,9 @@
 			try {
 				var data = JSON.parse(loadEvent.target.result);
 				loadState(data);
-				$("p.status").text("JSON caricato correttamente.");
+				setStatus("statusJsonLoaded");
 			} catch (error) {
-				$("p.status").text("Impossibile caricare il file JSON.");
+				setStatus("statusJsonLoadError");
 			}
 		};
 		reader.readAsText(file);
@@ -723,6 +855,8 @@
 	});
 
 	$(document).ready(function() {
+		var initialLanguage = $("#language-select").val() || "it";
+		setLanguage(initialLanguage);
 		getFields();
 		renumberBoxes();
 		setupPanZoom();
