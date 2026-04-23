@@ -1,0 +1,296 @@
+:root {
+	--bg: #f4f7fb;
+	--panel: #ffffff;
+	--ink: #0f172a;
+	--muted: #5b6472;
+	--line: #d9e2ec;
+	--accent: #0ea5a4;
+	--accent-2: #1363df;
+	--danger: #b42318;
+	--shadow: 0 20px 40px rgba(13, 42, 89, 0.12);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+	color: var(--ink);
+	background:
+		radial-gradient(circle at 8% 10%, rgba(14, 165, 164, 0.14), transparent 42%),
+		radial-gradient(circle at 92% 88%, rgba(19, 99, 223, 0.14), transparent 38%),
+		var(--bg);
+}
+
+.hero {
+	padding: 24px 28px 10px;
+}
+
+h1 {
+	font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+	font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+	margin: 0;
+	letter-spacing: 0.01em;
+}
+
+.subtitle {
+	margin: 8px 0 0;
+	color: var(--muted);
+	font-size: 0.98rem;
+}
+
+.app-layout {
+	display: flex;
+	gap: 20px;
+	padding: 8px 20px 22px;
+	align-items: flex-start;
+}
+
+.canvas-panel,
+.controls-panel {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	box-shadow: var(--shadow);
+	padding: 16px;
+}
+
+.canvas-panel {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: auto;
+}
+
+canvas {
+	display: block;
+	width: 100%;
+	height: auto;
+	min-width: 640px;
+	border-radius: 10px;
+	background: linear-gradient(180deg, #fbfdff, #f3f7fc);
+	border: 1px solid #d8e5f3;
+}
+
+p.status {
+	margin: 0 0 10px;
+	min-height: 21px;
+	color: var(--danger);
+	font-weight: 600;
+}
+
+.canvas-help {
+	margin: 0 0 8px;
+	font-size: 0.82rem;
+	color: #5b6472;
+}
+
+.controls-panel {
+	width: 520px;
+	max-width: 100%;
+}
+
+fieldset {
+	margin: 0 0 14px;
+	padding: 12px;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+legend {
+	font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+	font-weight: 700;
+	padding: 0 8px;
+}
+
+label {
+	font-size: 0.88rem;
+	color: #243046;
+}
+
+input {
+	width: 100%;
+	height: 34px;
+	padding: 4px 8px;
+	border: 1px solid #c8d3e2;
+	border-radius: 8px;
+	background: #fff;
+}
+
+textarea {
+	width: 100%;
+	min-height: 44px;
+	padding: 6px 8px;
+	border: 1px solid #c8d3e2;
+	border-radius: 8px;
+	background: #fff;
+	font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+	font-size: 0.9rem;
+	line-height: 1.2;
+	resize: vertical;
+}
+
+input.grid {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	margin-left: 8px;
+}
+
+.agrid {
+	display: inline-block;
+	font-weight: 600;
+}
+
+.inline-grid {
+	display: grid;
+	gap: 8px;
+	align-items: center;
+}
+
+.three-cols {
+	grid-template-columns: minmax(110px, 1fr) 72px;
+}
+
+.boxes-container {
+	margin-top: 10px;
+	display: grid;
+	gap: 10px;
+}
+
+.box-row {
+	border: 1px solid #d5e1ee;
+	border-radius: 10px;
+	padding: 10px;
+	background: #fff;
+}
+
+.box-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.box-title {
+	font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+	font-size: 0.96rem;
+}
+
+.box-grid {
+	display: grid;
+	grid-template-columns: 1fr 70px;
+	gap: 6px 8px;
+	align-items: center;
+}
+
+.labels-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+}
+
+.xlabel,
+.ylabel,
+.zlabel {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 6px;
+	padding: 8px;
+	border: 1px solid #dde6f2;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.xlabel label,
+.ylabel label,
+.zlabel label {
+	font-size: 0.8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: #4a596f;
+}
+
+.actions {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+
+button {
+	border: 0;
+	border-radius: 10px;
+	height: 36px;
+	font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+	transition: transform 140ms ease, filter 140ms ease;
+}
+
+.button,
+.labelz,
+.addbox {
+	background: linear-gradient(135deg, var(--accent-2), #0b5fcf);
+	color: #fff;
+}
+
+.resetview,
+.savejson,
+.loadjson {
+	background: linear-gradient(135deg, #23395d, #1b2f4e);
+	color: #fff;
+}
+
+.makeimage {
+	background: linear-gradient(135deg, var(--accent), #0f8f8f);
+	color: #fff;
+}
+
+.remove-box {
+	height: 30px;
+	padding: 0 10px;
+	font-size: 0.78rem;
+	background: #fff4f2;
+	border: 1px solid #f2c7c0;
+	color: #8f1d12;
+}
+
+button:hover {
+	transform: translateY(-1px);
+	filter: brightness(1.03);
+}
+
+footer {
+	text-align: center;
+	padding: 0 0 18px;
+	color: #66758b;
+	font-size: 0.88rem;
+}
+
+@media (max-width: 1280px) {
+	.app-layout {
+		flex-direction: column;
+	}
+
+	.controls-panel {
+		width: 100%;
+	}
+
+	canvas {
+		min-width: 0;
+	}
+}
+
+@media (max-width: 840px) {
+	.labels-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.actions {
+		grid-template-columns: 1fr;
+	}
+}

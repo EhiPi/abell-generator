@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Generatore del modello di Abell</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" media="screen" type="text/css" href="css/styles.css" />
+	</head>
+	<body>
+		<header class="hero">
+			<h1>Genera il modello di Abell</h1>
+			<p class="subtitle">Assi: x clienti, y bisogni, z modalità/tecnologie</p>
+		</header>
+
+		<main class="app-layout">
+			<section class="canvas-panel">
+				<p class="status"></p>
+				<p class="canvas-help">Mouse: rotella per zoom, trascina per pan.</p>
+				<canvas id="c" width="1050" height="800"></canvas>
+			</section>
+
+			<aside class="controls-panel">
+				<fieldset>
+					<legend>Box (origine + dimensioni)</legend>
+					<label class="agrid" for="grid-toggle">Mostra griglia</label>
+					<input type="checkbox" class="grid" id="grid-toggle" value="1" checked />
+					<div id="boxes-container" class="boxes-container">
+						<div class="box-row">
+							<div class="box-head">
+								<strong class="box-title">Box 1</strong>
+								<button type="button" class="remove-box">Rimuovi</button>
+							</div>
+							<div class="box-grid">
+								<label for="box-1-ox">Origine x</label><input type="number" id="box-1-ox" class="box-ox" min="0" max="9" value="0" />
+								<label for="box-1-oy">Origine y</label><input type="number" id="box-1-oy" class="box-oy" min="0" max="9" value="0" />
+								<label for="box-1-oz">Origine z</label><input type="number" id="box-1-oz" class="box-oz" min="0" max="9" value="0" />
+								<label for="box-1-sx">Dim x</label><input type="number" id="box-1-sx" class="box-sx" min="1" max="9" value="1" />
+								<label for="box-1-sy">Dim y</label><input type="number" id="box-1-sy" class="box-sy" min="1" max="9" value="1" />
+								<label for="box-1-sz">Dim z</label><input type="number" id="box-1-sz" class="box-sz" min="1" max="9" value="1" />
+								<label for="box-1-color">Colore box</label><input type="color" id="box-1-color" class="box-color" value="#3d9ee8" />
+							</div>
+						</div>
+					</div>
+					<button type="button" class="addbox">+ AGGIUNGI BOX</button>
+				</fieldset>
+
+				<fieldset>
+					<legend>Numero etichette asse</legend>
+					<div class="inline-grid three-cols">
+						<label for="xfields">x (clienti)</label><input type="number" class="fields" id="xfields" min="0" max="9" value="4" />
+						<label for="yfields">y (bisogni)</label><input type="number" class="fields" id="yfields" min="0" max="9" value="4" />
+						<label for="zfields">z (modalità)</label><input type="number" class="fields" id="zfields" min="0" max="9" value="4" />
+					</div>
+					<button type="button" class="labelz">AGGIORNA ETICHETTE</button>
+				</fieldset>
+
+				<fieldset>
+					<legend>Etichette assi</legend>
+					<div class="labels-grid">
+						<div class="xlabel"></div>
+						<div class="ylabel"></div>
+						<div class="zlabel"></div>
+					</div>
+				</fieldset>
+
+				<div class="actions">
+					<button type="button" class="button">DISEGNA</button>
+					<button type="button" class="resetview">RESET VISTA</button>
+					<button type="button" class="makeimage">ESPORTA IMMAGINE</button>
+					<button type="button" class="savejson">SALVA JSON</button>
+					<button type="button" class="loadjson">CARICA JSON</button>
+					<input type="file" id="loadjsoninput" accept="application/json" hidden />
+				</div>
+			</aside>
+		</main>
+
+		<footer>EhiPi 2026</footer>
+		<script src="js/app.js"></script>
+	</body>
+</html>
